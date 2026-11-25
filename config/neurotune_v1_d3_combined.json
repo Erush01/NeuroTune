@@ -1,0 +1,54 @@
+{
+  "variant": "D",
+  "folds": [0, 1, 2],
+  "seeds": [684, 685, 686],
+  "epochs": 50,
+  "batch_size": 64,
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "margin": 0.2,
+  "device": "cpu",
+  "trainer_seed_derivation": "seed",
+  "sampler": {
+    "strategy": "mixed_semi_hard",
+    "semi_hard_fraction": 0.25,
+    "uniform_warmup_epochs": 3,
+    "refresh_interval": 5,
+    "miner_version": "strict_cosine_band_v1",
+    "rng": {
+      "implementation": "python.random.Random",
+      "version": 2,
+      "epoch_seed_derivation": "seed*1000003 + fold*1009 + epoch"
+    },
+    "sampling_kind_codes": {
+      "uniform": 0,
+      "semi_hard": 1,
+      "fallback_uniform": 2
+    }
+  },
+  "dropout": {
+    "probabilities": {
+      "audio": 0.0,
+      "bpm": 0.1,
+      "genre": 0.25,
+      "lyrics": 0.2
+    },
+    "placement": "post_branch_activation_before_fusion",
+    "scaling": "none",
+    "scope": "training_only",
+    "rng": {
+      "implementation": "torch.Generator(device='cpu')",
+      "fold_seed_derivation": "seed * 1000003 + fold * 1009",
+      "epoch_seed_derivation": "dropout_seed + epoch_index_zero_based",
+      "consumption": "deterministic_triplet_batch_order; anchor_positive_negative; bpm_genre_lyrics"
+    }
+  },
+  "initialization": "independent_per_fold_seed",
+  "reference_namespaces": {
+    "D0": "neurotune_v1_full_modal_ablation",
+    "D1": "neurotune_v1_training_improvements",
+    "D2": "neurotune_v1_d2_modality_dropout"
+  },
+  "output_namespace": "neurotune_v1_d3_combined",
+  "evaluation_scope": "validation_only_development"
+}

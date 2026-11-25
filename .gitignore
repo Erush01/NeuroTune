@@ -1,0 +1,31 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.cortexkit/
+
+# Local and licensed data, generated experiment outputs
+/data/*
+!/data/README.md
+/downloads/
+/results/
+
+# Dataset archives, caches, checkpoints, and OS metadata
+*.zip
+*.tar.gz
+*.h5
+*.pt
+*.pth
+*.npz
+*.sqlite
+*.db
+*.mp3
+*:Zone.Identifier
+
+# Local credentials and logs
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.log

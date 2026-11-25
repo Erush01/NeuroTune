@@ -1,0 +1,45 @@
+# P1-B audio branch diagnostic
+
+D0 and D4 are reported as frozen audio-branch diagnostics, not as independently trained audio-only models.
+Same-genre retrieval uses validation-only galleries and known in-gallery validation positives. These are descriptive development results.
+MXM text source files are read, but parsing is restricted to train+validation catalog IDs. Held-out ABCD test IDs/labels are not materialized into diagnostic features or retrieval evaluation.
+The inherited official/legacy test-positive exclusion policy is retained only as frozen schedule/checkpoint provenance; P1-B does not resample triplets or train.
+
+## Fold/seed aggregate metrics
+
+| Fold | Seed | D0 R@10 / MRR@10 / NDCG@10 | D4 R@10 / MRR@10 / NDCG@10 | D4−D0 R@10 / MRR@10 / NDCG@10 |
+|---:|---:|---:|---:|---:|
+| 0 | 684 | 0.11539917695473251/0.05666960611405056/0.06163957205035454 | 0.13026543209876543/0.0666413874191652/0.07069551325371515 | 0.01486625514403292/0.009971781305114641/0.009055941203360611 |
+| 0 | 685 | 0.11729218106995884/0.06596531452087007/0.06607648511864399 | 0.14270164609053498/0.07778600823045267/0.0784736438851227 | 0.025409465020576144/0.011820693709582608/0.012397158766478705 |
+| 0 | 686 | 0.11481246325690769/0.0583286302175191/0.06134632063478973 | 0.14112139917695474/0.06957789535567313/0.0785577845929842 | 0.026308935920047044/0.011249265138154031/0.017211463958194465 |
+| 1 | 684 | 0.10225144438812386/0.060272873194221505/0.058704724145767065 | 0.11290189211537525/0.06351101301943998/0.06366221291103079 | 0.010650447727251391/0.003238139825218478/0.004957488765263723 |
+| 1 | 685 | 0.12557071517745674/0.06971308186195826/0.0712142753941133 | 0.10216637685036561/0.055354913500980915/0.056369918202763214 | -0.02340433832709113/-0.01435816836097735/-0.014844357191350091 |
+| 1 | 686 | 0.09782338571146969/0.05321974763688247/0.05486256579073452 | 0.12203363629110228/0.06903257089352595/0.06863822826687763 | 0.024210250579632595/0.01581282325664348/0.013775662476143105 |
+| 2 | 684 | 0.09312697071938848/0.04333344769223732/0.047060049215527325 | 0.10982948450403483/0.06798636841864508/0.0644873381311416 | 0.01670251378464635/0.024652920726407762/0.017427288915614278 |
+| 2 | 685 | 0.09835666254974613/0.05480364576185902/0.055876193744290266 | 0.11554360307838396/0.06476773706600795/0.06610161832761904 | 0.017186940528637826/0.009964091304148937/0.010225424583328778 |
+| 2 | 686 | 0.09519277635147654/0.050759343122455516/0.05036297873266512 | 0.10796446671682686/0.07370259823429852/0.06413649384178853 | 0.012771690365350322/0.022943255111843003/0.013773515109123412 |
+
+## Fold/seed eligibility coverage
+
+`fold_query_coverage.csv` records each system's eligible and ineligible validation-query counts, positive counts, and retrieval count provenance. Per-query rows contain compact metrics and hashes; gallery/relevance ID lists are not repeated.
+
+| Fold | Seed | System | Eligible queries | Missing/unusable genre | No candidates | No in-gallery positive | Eligible positives |
+|---:|---:|---|---:|---:|---:|---:|---:|
+| 0 | 684 | D0-audio-branch | 675 | 0 | 1 | 701 | 1458 |
+| 0 | 684 | D4-audio-branch | 675 | 0 | 1 | 701 | 1458 |
+| 0 | 685 | D0-audio-branch | 675 | 0 | 1 | 701 | 1458 |
+| 0 | 685 | D4-audio-branch | 675 | 0 | 1 | 701 | 1458 |
+| 0 | 686 | D0-audio-branch | 675 | 0 | 1 | 701 | 1458 |
+| 0 | 686 | D4-audio-branch | 675 | 0 | 1 | 701 | 1458 |
+| 1 | 684 | D0-audio-branch | 712 | 0 | 1 | 622 | 1592 |
+| 1 | 684 | D4-audio-branch | 712 | 0 | 1 | 622 | 1592 |
+| 1 | 685 | D0-audio-branch | 712 | 0 | 1 | 622 | 1592 |
+| 1 | 685 | D4-audio-branch | 712 | 0 | 1 | 622 | 1592 |
+| 1 | 686 | D0-audio-branch | 712 | 0 | 1 | 622 | 1592 |
+| 1 | 686 | D4-audio-branch | 712 | 0 | 1 | 622 | 1592 |
+| 2 | 684 | D0-audio-branch | 694 | 0 | 0 | 687 | 1562 |
+| 2 | 684 | D4-audio-branch | 694 | 0 | 0 | 687 | 1562 |
+| 2 | 685 | D0-audio-branch | 694 | 0 | 0 | 687 | 1562 |
+| 2 | 685 | D4-audio-branch | 694 | 0 | 0 | 687 | 1562 |
+| 2 | 686 | D0-audio-branch | 694 | 0 | 0 | 687 | 1562 |
+| 2 | 686 | D4-audio-branch | 694 | 0 | 0 | 687 | 1562 |

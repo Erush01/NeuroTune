@@ -1,0 +1,28 @@
+{
+  "variant": "D",
+  "folds": [0, 1, 2],
+  "seeds": [684, 685, 686],
+  "epochs": 50,
+  "batch_size": 64,
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "margin": 0.2,
+  "device": "cpu",
+  "dropout_probabilities": {
+    "audio": 0.0,
+    "bpm": 0.1,
+    "genre": 0.25,
+    "lyrics": 0.2
+  },
+  "dropout_placement": "post_branch_activation_before_fusion",
+  "dropout_scaling": "none",
+  "dropout_scope": "training_only",
+  "dropout_rng": {
+    "implementation": "torch.Generator(device='cpu')",
+    "fold_seed_derivation": "seed * 1000003 + fold * 1009",
+    "epoch_seed_derivation": "dropout_seed + epoch_index_zero_based",
+    "consumption": "deterministic_triplet_batch_order; anchor_positive_negative; bpm_genre_lyrics"
+  },
+  "output_namespace": "neurotune_v1_d2_modality_dropout",
+  "evaluation_scope": "validation_only_development"
+}

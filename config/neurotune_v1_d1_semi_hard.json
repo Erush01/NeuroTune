@@ -1,0 +1,37 @@
+{
+  "variant": "D",
+  "folds": [0, 1, 2],
+  "seeds": [684, 685, 686],
+  "epochs": 50,
+  "batch_size": 64,
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "margin": 0.2,
+  "device": "cpu",
+  "negative_strategy": "mixed_semi_hard",
+  "semi_hard_fraction": 0.25,
+  "uniform_warmup_epochs": 3,
+  "refresh_interval": 5,
+  "rng": {
+    "implementation": "python.random.Random",
+    "version": 2,
+    "epoch_seed_derivation": "seed*1000003 + fold*1009 + epoch"
+  },
+  "miner_version": "strict_cosine_band_v1",
+  "sampling_kind_codes": {
+    "uniform": 0,
+    "semi_hard": 1,
+    "fallback_uniform": 2
+  },
+  "pilot": {
+    "folds": [0],
+    "seeds": [684, 685, 686],
+    "output_namespace": "neurotune_v1_training_improvements_pilot"
+  },
+  "full": {
+    "folds": [0, 1, 2],
+    "seeds": [684, 685, 686],
+    "output_namespace": "neurotune_v1_training_improvements"
+  },
+  "evaluation_scope": "validation_only_development"
+}

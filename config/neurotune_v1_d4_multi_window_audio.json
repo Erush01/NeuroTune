@@ -1,0 +1,31 @@
+{
+  "variant": "D",
+  "folds": [0, 1, 2],
+  "seeds": [684, 685, 686],
+  "epochs": 50,
+  "batch_size": 64,
+  "optimizer": "Adam",
+  "learning_rate": 0.001,
+  "margin": 0.2,
+  "device": "cpu",
+  "modalities": ["audio", "bpm", "lyrics", "genre"],
+  "sampler": "D0_uniform_triplet_schedules",
+  "trainer_seed_derivation": "seed",
+  "dropout": {"probabilities": {"audio": 0.0, "bpm": 0.0, "lyrics": 0.0, "genre": 0.0}},
+  "audio_windows": ["start", "middle", "end"],
+  "window_seconds": 30,
+  "window_formula": "start=0; middle=max(0,(duration-30)/2); end=max(0,duration-30)",
+  "window_interval": "[start,start+30)",
+  "channel_count": 26,
+  "feature_cache_dtype": "float32",
+  "feature_cache_normalization": "raw/unnormalized; deferred until train split",
+  "pooling": "mean_valid_raw_projected_64d_before_fusion",
+  "normalization": "unchanged_fusion_normalization_only_after_fusion",
+  "selection": {"primary": "validation NDCG@10", "tie_breakers": ["validation triplet loss", "earliest epoch"]},
+  "reference_namespaces": {"D0": "neurotune_v1_full_modal_ablation", "schedules": "neurotune_v1_abcd_cv"},
+  "output_namespaces": {
+    "pilot": "neurotune_v1_d4_multi_window_audio_pilot",
+    "full": "neurotune_v1_d4_multi_window_audio"
+  },
+  "evaluation_scope": "validation_only_development"
+}
